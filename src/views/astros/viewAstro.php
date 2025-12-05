@@ -30,6 +30,7 @@ $imagePath = $basePath . $astro->image;
             text-decoration: none;
             font-weight: bold;
             font-size: 25px;
+            margin-right: 100px;
         }
 
         .general-link:hover {
@@ -95,6 +96,7 @@ $imagePath = $basePath . $astro->image;
 
 </div>
 <a class="general-link" href="<?php echo BASE_URL."?controller=AstroController&action=viewDeletingAstro&id=$astro->id" ?>">Eliminar</a>
+<a class="general-link" href="<?php echo BASE_URL."?controller=AstroController&action=viewUpdatingAstro&id=$astro->id" ?>">Modificar</a>
 
 </body>
 </html>

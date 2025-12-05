@@ -8,7 +8,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 
-CREATE TABLE IF NOT EXISTS `astros` (
+CREATE TABLE `astros` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(600) NOT NULL,

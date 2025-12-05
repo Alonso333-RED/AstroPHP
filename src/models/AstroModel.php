@@ -40,4 +40,30 @@ class AstroModel {
         $stm->bindParam(':id', $id);
         return $stm->execute();
     }
+
+    function updateAstro($astro) {
+        $sql = "UPDATE astros SET 
+                    name = :name, 
+                    description = :description, 
+                    type = :type, 
+                    diameter = :diameter, 
+                    mass = :mass, 
+                    discovery_year = :discovery_year, 
+                    discovered_by = :discovered_by, 
+                    temperature = :temperature, 
+                    image = :image 
+                WHERE id = :id";
+        $stm = Config::conectar()->prepare($sql);
+        $stm->bindParam(':name', $astro->name);
+        $stm->bindParam(':description', $astro->description);
+        $stm->bindParam(':type', $astro->type);
+        $stm->bindParam(':diameter', $astro->diameter);
+        $stm->bindParam(':mass', $astro->mass);
+        $stm->bindParam(':discovery_year', $astro->discovery_year);
+        $stm->bindParam(':discovered_by', $astro->discovered_by);
+        $stm->bindParam(':temperature', $astro->temperature);
+        $stm->bindParam(':image', $astro->image);
+        $stm->bindParam(':id', $astro->id);
+        return $stm->execute();
+    }
 }

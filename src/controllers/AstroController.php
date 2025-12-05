@@ -86,4 +86,71 @@ function createAstro() {
         $astroModel->deleteAstroById($id);
         header("Location: ".BASE_URL."?controller=AstroController&action=viewAllAstros");
     }
+
+    function viewUpdatingAstro() {
+        $id=$_GET["id"];
+        $astroModel = new AstroModel();
+        $astro = $astroModel->getAstroById($id);
+        include("./src/views/astros/viewUpdatingAstro.php");
+    }
+
+    function updateAstro() {
+        try {
+
+            if(isset($_POST) && isset($_FILES)){
+
+                $id              = $_POST["id"];
+                $name            = $_POST["name"];
+                $description     = $_POST["description"];
+                $type            = $_POST["type"];
+                $diameter        = $_POST["diameter"];
+                $mass            = $_POST["mass"];
+                $discovery_year  = $_POST["discovery_year"];
+                $discovered_by   = $_POST["discovered_by"];
+                $temperature     = $_POST["temperature"];
+
+                $img  = $_FILES["image"]["name"];
+                $temp = $_FILES["image"]["tmp_name"];
+
+                $astroModel = new AstroModel();
+                $existingAstro = $astroModel->getAstroById($id);
+
+                if(
+                    $name=="" || $type=="" ||
+                    $diameter=="" || $mass=="" || $discovery_year=="" ||
+                    $discovered_by=="" || $temperature==""
+                ){
+                    echo "Faltan datos por completar";
+                    return 0;
+                }
+
+                $astro = new Astro();
+                $astro->id             = $id;
+                $astro->name           = $name;
+                $astro->description    = $description;
+                $astro->type           = $type;
+                $astro->diameter       = $diameter;
+                $astro->mass           = $mass;
+                $astro->discovery_year = $discovery_year;
+                $astro->discovered_by  = $discovered_by;
+                $astro->temperature    = $temperature;
+
+                if($img != ""){
+                    $astro->image = $img;
+                    move_uploaded_file($temp, "./src/public/astro_images/".$img);
+                } else {
+                    $astro->image = $existingAstro->image;
+                }
+
+                $model = new AstroModel();
+                $model->updateAstro($astro);
+
+                header("Location: ".BASE_URL."?controller=AstroController&action=viewAstro&id=".$id);
+                exit;
+            }
+
+        } catch(Exception $e) {
+            echo $e->getMessage();
+        }
+    }
 }
