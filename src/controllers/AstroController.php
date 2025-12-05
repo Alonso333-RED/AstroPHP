@@ -82,7 +82,9 @@ function createAstro() {
 
     function deleteAstro() {
         $id=$_GET["id"];
+        $imagePath = "./src/public/astro_images/";
         $astroModel = new AstroModel();
+        unlink($imagePath . $astroModel->getAstroById($id)->image);
         $astroModel->deleteAstroById($id);
         header("Location: ".BASE_URL."?controller=AstroController&action=viewAllAstros");
     }
